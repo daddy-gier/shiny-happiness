@@ -1,0 +1,36 @@
+{
+  "display": {
+    "icon": {
+      "id": "minecraft:creeper_head"
+    },
+    "title": {
+      "translate": "advancement.integrateddynamics.creeper_taming"
+    },
+    "description": {
+      "translate": "advancement.integrateddynamics.creeper_taming.desc"
+    },
+    "frame": "challenge"
+  },
+  "parent": "integrateddynamics:advanced_operations/what_would_i_be_looking_at",
+  "criteria": {
+    "criteria_0": {
+      "trigger": "integrateddynamics:part_variable_driven",
+      "conditions": {
+        "part_type": "integrateddynamics:display_panel",
+        "variable": {
+          "type": "operator",
+          "operator": "integrateddynamics:entity_health",
+          "input": {
+            "0": {
+              "type": "value_type",
+              "value": {
+                "type": "entity",
+                "entity": "minecraft:creeper"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,26 @@
+lua = [
+	"core/game/boot"
+]
+shader = [
+	"core/shaders/default"
+]
+physics_config = [
+	"global"
+]
+unit = [
+	"core/units/camera"
+	"units/bullet/bullet"
+]
+level = [
+	"levels/mover"
+]
+font = [
+	"core/game/hud/debug"
+]
+material = [
+	"core/game/hud/debug"
+]
+sound = [
+	"sfx/bounce"
+	"sfx/shoot"
+]

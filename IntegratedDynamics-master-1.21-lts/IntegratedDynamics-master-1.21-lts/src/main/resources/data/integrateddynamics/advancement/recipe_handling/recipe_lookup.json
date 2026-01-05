@@ -1,0 +1,48 @@
+{
+  "display": {
+    "icon": {
+      "id": "integrateddynamics:variable",
+      "components": {
+        "integrateddynamics:variable_facade": {
+          "partId": 1,
+          "_id": 1,
+          "_type": "integrateddynamics:aspect",
+          "aspectName": "integrateddynamics:read_operator_recipehandler_recipebyoutput"
+        }
+      }
+    },
+    "title": {
+      "translate": "advancement.integrateddynamics.recipe_lookup"
+    },
+    "description": {
+      "translate": "advancement.integrateddynamics.recipe_lookup.desc"
+    }
+  },
+  "parent": "integrateddynamics:recipe_handling/recipe_creation",
+  "criteria": {
+    "criteria_0": {
+      "trigger": "integrateddynamics:part_variable_driven",
+      "conditions": {
+        "part_type": "integrateddynamics:display_panel",
+        "variable": {
+          "type": "operator",
+          "operator": "integrateddynamics:operator_apply",
+          "input": {
+            "0": {
+              "type": "aspect",
+              "aspect": "integrateddynamics:read_operator_recipehandler_recipebyoutput"
+            },
+            "1": {
+              "type": "value_type",
+              "value": {
+                "type": "serialized",
+                "value_type": "integrateddynamics:ingredients",
+                "value": "{\"minecraft:itemstack\":[{id:\"minecraft:chest\",Count:1}]}"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

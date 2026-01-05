@@ -1,0 +1,45 @@
+name: "Add labeled issues to project board"
+on:
+  issues:
+    types: [labeled]
+
+jobs:
+  assign:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Maintenance Issues
+        id: add-project-maintenance
+        uses: actions/add-to-project@v1.0.1
+        with:
+          project-url: https://github.com/orgs/CyclopsMC/projects/3
+          github-token: ${{ secrets.PAT }}
+          labeled: bug, performance, question, more-information-needed
+          label-operator: OR
+      - name: Development Issues
+        id: add-project-development
+        uses: actions/add-to-project@v1.0.1
+        with:
+          project-url: https://github.com/orgs/CyclopsMC/projects/4
+          github-token: ${{ secrets.PAT }}
+          labeled: feature-long-term, feature
+          label-operator: OR
+      - name: Feature Accepted
+        if: |
+          contains(github.event.issue.labels.*.name, 'feature')
+        uses: titoportas/update-project-fields@v0.1.0
+        with:
+          project-url: https://github.com/orgs/CyclopsMC/projects/4
+          github-token: ${{ secrets.PAT }}
+          item-id: ${{ steps.add-project-development.outputs.itemId }}
+          field-keys: Status
+          field-values: 'Accepted (To Do)'
+      - name: More Information Needed
+        if: |
+          contains(github.event.issue.labels.*.name, 'more-information-needed')
+        uses: titoportas/update-project-fields@v0.1.0
+        with:
+          project-url: https://github.com/orgs/CyclopsMC/projects/3
+          github-token: ${{ secrets.PAT }}
+          item-id: ${{ steps.add-project-maintenance.outputs.itemId }}
+          field-keys: Status
+          field-values: 'On hold (awaiting input)'

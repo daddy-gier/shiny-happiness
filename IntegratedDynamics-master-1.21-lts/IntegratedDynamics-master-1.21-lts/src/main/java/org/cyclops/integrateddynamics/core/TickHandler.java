@@ -1,0 +1,87 @@
+package org.cyclops.integrateddynamics.core;
+
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.neoforge.event.tick.ServerTickEvent;
+import org.cyclops.cyclopscore.helper.MinecraftHelpers;
+import org.cyclops.integrateddynamics.IntegratedDynamics;
+import org.cyclops.integrateddynamics.api.network.IFullNetworkListener;
+import org.cyclops.integrateddynamics.api.network.INetwork;
+import org.cyclops.integrateddynamics.api.network.IPositionedAddonsNetworkIngredients;
+import org.cyclops.integrateddynamics.core.helper.NetworkHelpers;
+import org.cyclops.integrateddynamics.core.network.PartOffsetsClientNotifier;
+import org.cyclops.integrateddynamics.core.network.diagnostics.NetworkDiagnostics;
+import org.cyclops.integrateddynamics.core.persist.world.NetworkWorldStorage;
+
+/**
+ * Handles server ticks to delegate to networks.
+ * @author rubensworks
+ */
+public final class TickHandler {
+
+    private static TickHandler INSTANCE;
+    private int tick = 0;
+    private boolean shouldCrash = false;
+    public boolean ticked = false;
+
+    private TickHandler() {
+
+    }
+
+    public static TickHandler getInstance() {
+        if(INSTANCE == null) {
+            INSTANCE = new TickHandler();
+        }
+        return INSTANCE;
+    }
+
+    public void setShouldCrash() {
+        this.shouldCrash = true;
+    }
+
+    @SubscribeEvent
+    public void onTick(ServerTickEvent.Post event) {
+        if (shouldCrash) {
+            throw new RuntimeException("Forcefully crashed the server.");
+        }
+        // Invoke update logic irrespective of safe-mode
+        for (INetwork network : NetworkWorldStorage.getInstance(IntegratedDynamics._instance).getNetworks()) {
+            network.updateGuaranteed();
+        }
+
+        // Do further network updates only when safe-mode is not enabled
+        if (NetworkHelpers.shouldWork()) {
+            boolean isBeingDiagnozed = NetworkDiagnostics.getInstance().isBeingDiagnozed();
+            if (isBeingDiagnozed) {
+                tick = (tick + 1) % MinecraftHelpers.SECOND_IN_TICKS;
+            }
+            boolean shouldSendTickDurationInfo = isBeingDiagnozed && tick == 0;
+            for (INetwork network : NetworkWorldStorage.getInstance(IntegratedDynamics._instance).getNetworks()) {
+                if (isBeingDiagnozed && (shouldSendTickDurationInfo || network.hasChanged())) {
+                    NetworkDiagnostics.getInstance().sendNetworkUpdate(network);
+                    network.resetLastSecondDurations();
+
+                    // Also reset durations of indexes
+                    for (IFullNetworkListener fullNetworkListener : network.getFullNetworkListeners()) {
+                        if (fullNetworkListener instanceof IPositionedAddonsNetworkIngredients) {
+                            IPositionedAddonsNetworkIngredients<?, ?> networkIngredients = (IPositionedAddonsNetworkIngredients<?, ?>) fullNetworkListener;
+                            networkIngredients.resetLastSecondDurationsIndex();
+                        }
+                    }
+                }
+                try {
+                    if (!network.isCrashed()) {
+                        network.update();
+                    }
+                } catch (Throwable e) {
+                    network.setCrashed(true);
+                    throw e;
+                }
+            }
+        }
+
+        ticked = true;
+
+        PartOffsetsClientNotifier.getInstance().tick();
+    }
+
+}

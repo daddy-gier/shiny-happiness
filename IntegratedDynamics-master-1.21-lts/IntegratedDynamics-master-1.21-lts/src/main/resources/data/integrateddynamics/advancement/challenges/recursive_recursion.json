@@ -1,0 +1,45 @@
+{
+  "display": {
+    "icon": {
+      "id": "integrateddynamics:variable",
+      "components": {
+        "integrateddynamics:variable_facade": {
+          "partId": 1,
+          "_id": 1,
+          "_type": "integrateddynamics:valuetype",
+          "typeName": "integrateddynamics:list",
+          "value": {
+            "proxyName": "integrateddynamics:materialized",
+            "serialized": {
+              "valueType": "integrateddynamics:integer",
+              "values": [1, 10, 100]
+            }
+          }
+        }
+      }
+    },
+    "title": {
+      "translate": "advancement.integrateddynamics.recursive_recursion"
+    },
+    "description": {
+      "translate": "advancement.integrateddynamics.recursive_recursion.desc"
+    },
+    "frame": "challenge"
+  },
+  "parent": "integrateddynamics:advanced_operations/what_would_i_be_looking_at",
+  "criteria": {
+    "criteria_0": {
+      "trigger": "integrateddynamics:part_variable_driven",
+      "conditions": {
+        "part_type": "integrateddynamics:display_panel",
+        "variable": {
+          "type": "value_type",
+          "value": {
+            "type": "list",
+            "infinite_list": true
+          }
+        }
+      }
+    }
+  }
+}

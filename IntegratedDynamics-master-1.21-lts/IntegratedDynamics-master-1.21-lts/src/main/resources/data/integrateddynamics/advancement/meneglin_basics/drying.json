@@ -1,0 +1,24 @@
+{
+  "display": {
+    "icon": {
+      "id": "integrateddynamics:drying_basin"
+    },
+    "title": {
+      "translate": "advancement.integrateddynamics.drying"
+    },
+    "description": {
+      "translate": "advancement.integrateddynamics.drying.desc"
+    }
+  },
+  "parent": "integrateddynamics:meneglin_basics/squeezing",
+  "criteria": {
+    "criteria_0": {
+      "trigger": "cyclopscore:item_crafted",
+      "conditions": {
+        "item": {
+          "items": ["integrateddynamics:drying_basin"]
+        }
+      }
+    }
+  }
+}

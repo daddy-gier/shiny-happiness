@@ -1,0 +1,12 @@
+lua = [
+	"boot"
+]
+unit = [
+	"core/units/camera"
+]
+shader = [
+	"core/shaders/default"
+]
+physics_config = [
+	"global"
+]

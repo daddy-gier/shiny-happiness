@@ -1,0 +1,34 @@
+{
+  "display": {
+    "icon": {
+      "id": "integrateddynamics:menril_log_filled"
+    },
+    "title": {
+      "translate": "advancement.integrateddynamics.meneglin_discovery"
+    },
+    "description": {
+      "translate": "advancement.integrateddynamics.meneglin_discovery.desc"
+    }
+  },
+  "parent": "integrateddynamics:root",
+  "rewards": {
+    "recipes": [
+      "integrateddynamics:squeezer",
+      "integrateddynamics:drying_basin"
+    ]
+  },
+  "criteria": {
+    "criteria_0": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "integrateddynamics:menril_log"
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

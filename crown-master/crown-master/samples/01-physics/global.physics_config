@@ -1,0 +1,19 @@
+materials = {
+	default = { friction = 0.8 rolling_friction = 0.5 restitution = 0.81 }
+	bullet = { friction = 0.8 rolling_friction = 0.5 restitution = 0.25 }
+}
+
+collision_filters = {
+	no_collision = { collides_with = [] }
+	default = { collides_with = [ "default", "mover" "player" "bullet" ] }
+	mover = { collides_with = [ "default" ] }
+	player = { collides_with = [ "default" ] }
+	bullet = { collides_with = [ "default" "bullet" ] }
+}
+
+actors = {
+	static = { dynamic = false }
+	dynamic = { dynamic = true }
+	keyframed = { dynamic = true kinematic = true disable_gravity = true }
+	trigger = { trigger = true }
+}

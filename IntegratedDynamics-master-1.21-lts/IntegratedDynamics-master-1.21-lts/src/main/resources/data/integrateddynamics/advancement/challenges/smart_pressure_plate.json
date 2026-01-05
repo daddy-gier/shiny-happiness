@@ -1,0 +1,47 @@
+{
+  "display": {
+    "icon": {
+      "id": "integrateddynamics:variable",
+      "components": {
+        "integrateddynamics:variable_facade": {
+          "partId": 1,
+          "_id": 1,
+          "_type": "integrateddynamics:aspect",
+          "aspectName": "integrateddynamics:read_entity_entity"
+        }
+      }
+    },
+    "title": {
+      "translate": "advancement.integrateddynamics.smart_pressure_plate"
+    },
+    "description": {
+      "translate": "advancement.integrateddynamics.smart_pressure_plate.desc"
+    },
+    "frame": "challenge"
+  },
+  "parent": "integrateddynamics:advanced_operations/what_would_i_be_looking_at",
+  "criteria": {
+    "criteria_0": {
+      "trigger": "integrateddynamics:part_writer_aspect",
+      "conditions": {
+        "part_type": "integrateddynamics:redstone_writer",
+        "variable": {
+          "type": "operator",
+          "operator": "integrateddynamics:relational_equals",
+          "input": {
+            "0": {
+              "type": "operator",
+              "operator": "integrateddynamics:string_name",
+              "input": {
+                "0": {
+                  "type": "aspect",
+                  "aspect": "integrateddynamics:read_entity_entity"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

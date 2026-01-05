@@ -1,0 +1,60 @@
+# Set the default behavior, in case people don't have core.autocrlf set.
+* text=auto
+
+*.c    eol=lf
+*.cpp  eol=lf
+*.h    eol=lf
+*.hpp  eol=lf
+*.sc   eol=lf
+*.sh   eol=lf
+*.m    eol=lf
+*.mm   eol=lf
+*.md   eol=lf
+*.lua  eol=lf
+*.mk   eol=lf
+*.rb   eol=lf
+*.py   eol=lf
+*.java eol=lf
+*.vala eol=lf
+*.rst  eol=lf
+*.yml  eol=lf
+.gitattributes eol=lf
+makefile eol=lf
+
+*.sln     text eol=crlf
+*.vcproj  text eof=crlf
+*.vcxproj text eof=crlf
+*.bat     text eol=crlf
+
+*.so  binary
+*.dll binary
+*.exe binary
+*.png binary
+*.tga binary
+*.dds binary
+*.ktx binary
+*.pvr binary
+*.wav binary
+*.ogg binary
+
+/samples/*.config           eol=lf linguist-language=json
+/samples/*.font             eol=lf linguist-language=json
+/samples/*.level            eol=lf linguist-language=json
+/samples/*.material         eol=lf linguist-language=json
+/samples/*.mesh             eol=lf linguist-language=json
+/samples/*.package          eol=lf linguist-language=json
+/samples/*.physics_config   eol=lf linguist-language=json
+/samples/*.physics          eol=lf linguist-language=json
+/samples/*.shader           eol=lf linguist-language=json
+/samples/*.sound            eol=lf linguist-language=json
+/samples/*.sprite_animation eol=lf linguist-language=json
+/samples/*.sprite           eol=lf linguist-language=json
+/samples/*.texture          eol=lf linguist-language=json
+/samples/*.unit             eol=lf linguist-language=json
+
+3rdparty/**                     linguist-vendored
+docs/**                         linguist-vendored
+exporters/**                    linguist-vendored
+makefile                        linguist-vendored
+scripts/**                      linguist-vendored
+tools/level_editor/resources/** linguist-vendored

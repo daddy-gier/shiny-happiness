@@ -1,0 +1,23 @@
+lua = [
+	"core/game/boot"
+]
+shader = [
+	"core/shaders/default"
+]
+physics_config = [
+	"global"
+]
+unit = [
+	"core/units/camera"
+	"units/princess/princess"
+	"units/soldier/soldier"
+]
+level = [
+	"levels/game"
+]
+font = [
+	"core/game/hud/debug"
+]
+material = [
+	"core/game/hud/debug"
+]

@@ -1,0 +1,32 @@
+# We don't want compiled stuff in here!
+/bin
+doc/info.txt
+/build
+/run
+/runs
+
+# Ignore project specific files
+.classpath
+.project
+.settings
+.pydevproject
+eclipse/*
+.gradle/*
+repo/*
+*.iml
+*.ipr
+*.iws
+out/*
+keystore.jks
+.idea
+
+# Ignore IDE specific files
+.vscode
+*.launch
+
+# Ignore mac-specific file(s)
+.DS_Store
+
+# Ignore files specific to dev environments
+secrets.properties
+changelog.txt

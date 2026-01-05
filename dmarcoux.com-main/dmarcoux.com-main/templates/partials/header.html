@@ -1,0 +1,95 @@
+{% import "macros/macros.html" as post_macros %}
+
+<head prefix="og: http://ogp.me/ns#">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    {# SEO, Open Graph meta tags #}
+
+    {# current_url isn't defined on the 404 page, so this is why `if current_url` is needed #}
+    {% if current_url %}
+        <link rel="canonical" href="{{ current_url | safe }}" />
+        <meta property="og:url" content="{{ current_url | safe }}" />
+    {% endif %}
+
+    {% if page.title %}
+        {% set og_title = page.title %}
+    {% elif section.title %}
+        {% set og_title = section.title %}
+    {% else %}
+        {% set og_title = config.title %}
+    {% endif %}
+
+    {% set og_title_length = og_title | length %}
+    {# The title must be at most 70 characters, more is not recommended. This is enforced below. #}
+    {% if og_title_length > 70 %}
+    {{ throw(message="og:title is longer than 70 characters (" ~ og_title_length ~ "): " ~ og_title) }}
+    {% endif %}
+
+    <meta property="og:title" content="{{ og_title }}" />
+    <meta property="og:type" content="{{ page.extra.meta.type | default(value="website") }}" />
+    <meta property="og:image" content="{{ get_url(path="images/og_image.png") }}" />
+    <meta property="og:locale" content="en" />
+
+    {% set description = page.description | default(value=config.description) %}
+    {% set description_length = description | length %}
+    {# Ensure I don't forget to write something in the description #}
+    {% if description_length == 0 %}
+        {{ throw(message="Description is empty") }}
+    {% endif %}
+
+    {# The description must be at most 200 characters, more is not recommended. This is enforced below. #}
+    {% if description_length > 200 %}
+        {{ throw(message="Description is longer than 200 characters (" ~ description_length ~ "): " ~ description ) }}
+    {% endif %}
+    <meta property="og:description" content="{{ description }}" />
+    <meta name="description" content="{{ description }}" />
+
+    {% set keywords = page.extra.meta.keywords | default(value="DevOps Engineer, Software Engineer, Web Development, DevOps, Ruby, Elixir, Linux, Docker") %}
+    {% set number_of_keywords = keywords | split(pat=",") | length %}
+    {# Having 10 keywords is optimal, and more is definitely not good. This is enforced below. #}
+    {% if number_of_keywords > 10 %}
+        {{ throw(message="More than 10 keywords (" ~ number_of_keywords ~ "): " ~ keywords) }}
+    {% endif %}
+    <meta name="keywords" content="{{keywords}}" />
+
+    {# Site title #}
+    <title>
+        {% if page.title %}
+            {{ config.title ~ " | " ~ page.title }}
+        {% elif section.title %}
+            {{ config.title ~ " | " ~ section.title }}
+        {% else %}
+            {{ config.title }}
+        {% endif %}
+    </title>
+
+    {# Favicon #}
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ get_url(path="favicon/apple-touch-icon.png") }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ get_url(path="favicon/favicon-32x32.png") }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ get_url(path="favicon/favicon-16x16.png") }}">
+    <link rel="manifest" href="{{ get_url(path="favicon/site.webmanifest") }}">
+
+    {# Font from cdn or disk #}
+    {% if config.extra.use_cdn | default(value=false) %}
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jetbrains-mono@1.0.6/css/jetbrains-mono.min.css">
+    {% else %}
+        <link href={{ get_url(path="fonts.css") }} rel="stylesheet" />
+    {% endif %}
+
+    {# Fancy Codeblock - Add the language label and a copy button to code blocks #}
+    <script src={{ get_url(path="js/codeblock.js") }}></script>
+
+    {# RSS & Atom #}
+    <link rel="alternate" type="application/rss+xml" title="{{ config.title }}" href="{{ get_url(path="rss.xml", trailing_slash=false) }}">
+    <link rel="alternate" type="application/atom+xml" title="{{ config.title }}" href="{{ get_url(path="atom.xml", trailing_slash=false) }}">
+
+    <link rel="stylesheet" type="text/css" media="screen" href={{ get_url(path="main.css") }} />
+
+    {% if config.extra.stylesheets %}
+        {% for stylesheet in config.extra.stylesheets %}
+            <link rel="stylesheet" href="{{ get_url(path=stylesheet) }}">
+        {% endfor %}
+    {% endif %}
+</head>

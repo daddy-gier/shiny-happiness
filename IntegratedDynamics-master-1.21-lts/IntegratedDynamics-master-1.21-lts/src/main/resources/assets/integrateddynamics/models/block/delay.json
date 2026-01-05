@@ -1,0 +1,12 @@
+{
+    "parent": "block/cube",
+    "textures": {
+        "particle": "integrateddynamics:block/delay_top",
+        "down": "integrateddynamics:block/delay_top",
+        "up": "integrateddynamics:block/delay_top",
+        "north": "integrateddynamics:block/delay_front",
+        "east": "integrateddynamics:block/delay_side",
+        "south": "integrateddynamics:block/delay_front",
+        "west": "integrateddynamics:block/delay_side"
+    }
+}

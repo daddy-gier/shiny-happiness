@@ -1,0 +1,141 @@
+package org.cyclops.integrateddynamics.api.evaluate.operator;
+
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.resources.ResourceLocation;
+import org.cyclops.integrateddynamics.api.evaluate.EvaluationException;
+import org.cyclops.integrateddynamics.api.evaluate.variable.IValue;
+import org.cyclops.integrateddynamics.api.evaluate.variable.IValueType;
+import org.cyclops.integrateddynamics.api.evaluate.variable.IVariable;
+import org.cyclops.integrateddynamics.api.logicprogrammer.IConfigRenderPattern;
+import org.cyclops.integrateddynamics.core.helper.Helpers;
+
+import javax.annotation.Nullable;
+import java.util.List;
+
+/**
+ * Relation on value types.
+ * @author rubensworks
+ */
+public interface IOperator {
+
+    /**
+     * @return The unique name of this operator that will also be used for display.
+     */
+    public String getSymbol();
+
+    /**
+     * @return The unique name for this operator, only used for internal storage.
+     */
+    public ResourceLocation getUniqueName();
+
+    /**
+     * @return The unique interact name for this operator, when interacting with this operator using external contexts,
+     *         such as Integrated Scripting.
+     */
+    public String getInteractName();
+
+    /**
+     * @return Override for the default global interact name prefix.
+     */
+    @Nullable
+    public String getGlobalInteractNamePrefix();
+
+    /**
+     * @return If the global interact name prefix should also be used for local scopes.
+     */
+    public boolean shouldAlsoPrefixLocalScope();
+
+    /**
+     * @return The global interact name.
+     */
+    public default String getGlobalInteractName() {
+        String globalInteractNamePrefix = this.getGlobalInteractNamePrefix() != null ?
+                this.getGlobalInteractNamePrefix() :
+                (this.getInputTypes().length > 0 ? this.getInputTypes()[0].getTypeName() : null);
+        return globalInteractNamePrefix != null ?
+                globalInteractNamePrefix + Helpers.capitalizeString(this.getInteractName()) :
+                this.getInteractName();
+    }
+
+    /**
+     * @return The scoped interact name.
+     */
+    public default String getScopedInteractName() {
+        return this.shouldAlsoPrefixLocalScope() ?
+                this.getGlobalInteractNamePrefix() + Helpers.capitalizeString(this.getInteractName()) :
+                this.getInteractName();
+    }
+
+    /**
+     * @return The unique unlocalized name for this operator.
+     */
+    public String getTranslationKey();
+
+    /**
+     * @return The unique unlocalized category name for this operator.
+     */
+    public String getUnlocalizedCategoryName();
+
+    /**
+     * @return The localized full name for this operator, includes category name
+     */
+    public MutableComponent getLocalizedNameFull();
+
+    /**
+     * Add tooltip lines for this aspect when hovered in a gui.
+     * @param lines The list to add lines to.
+     * @param appendOptionalInfo If shift-to-show info should be added.
+     */
+    public void loadTooltip(List<Component> lines, boolean appendOptionalInfo);
+
+    /**
+     * @return The ordered types of values that are used as input for this operator.
+     */
+    public IValueType[] getInputTypes();
+
+    /**
+     * @return The type of value that is achieved when this operator is executed.
+     */
+    public IValueType getOutputType();
+
+    /**
+     * Get the output value type depending on the active input of the operator.
+     * @param input The input that would be given during evaluation.
+     * @return The type of value that is achieved when this operator is executed.
+     */
+    public IValueType getConditionalOutputType(IVariable[] input);
+
+    /**
+     * Evaluate the given input values for this operator.
+     * @param input The ordered input values.
+     * @return The output value.
+     * @throws EvaluationException When something went wrong while evaluating.
+     */
+    public IValue evaluate(IVariable... input) throws EvaluationException;
+
+    /**
+     * @return The required input length.
+     */
+    public int getRequiredInputLength();
+
+    /**
+     * Check the given input value types for this operator.
+     * @param input The ordered input value types.
+     * @return An error or null if valid.
+     */
+    public MutableComponent validateTypes(IValueType[] input);
+
+    /**
+     * @return The render pattern for this operator inside the logic programmer.
+     */
+    public IConfigRenderPattern getRenderPattern();
+
+    /**
+     * Materialize this operator so that it can exist without any external references.
+     * @return The materialized operator.
+     * @throws EvaluationException if materialization fails because of a variable evaluation.
+     */
+    public IOperator materialize() throws EvaluationException;
+
+}

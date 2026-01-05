@@ -1,0 +1,89 @@
+* {
+	font-size: 12px;
+}
+
+entry {
+	border-radius: 3px;
+	min-height: 22px;
+	padding-left: 4px;
+	padding-right: 4px;
+}
+
+button {
+	border-radius: 3px;
+	min-height: 22px;
+	padding: 0px 6px;
+}
+
+button.image-button {
+	min-width: 22px;
+	padding-left: 0px;
+	padding-right: 0px;
+}
+
+button.color {
+	padding: 0px;
+}
+
+notebook > header tab {
+	min-height: 24px;
+	min-width: 24px;
+	padding: 3px 6px;
+}
+
+.color {
+	min-height: 22px;
+	padding: 0px;
+}
+
+.console-view textview, .console-view entry {
+	font: 12px "Monospace";
+}
+
+.statusbar {
+	font-size: 10px;
+	min-height: 22px;
+}
+
+.axis {
+	min-width: 22px;
+}
+
+.axis.x {
+	background: rgba(180, 0, 0, 0.2);
+}
+
+.axis.y {
+	background: rgba(0, 180, 0, 0.2);
+}
+
+.axis.z {
+	background: rgba(0, 0, 180, 0.2);
+}
+
+.axis.w {
+	background: rgba(180, 180, 180, 0.2);
+}
+
+.counter-label {
+	color: @theme_fg_color;
+	font-size: 14px;
+	font-weight: bold;
+	margin-left: 10px;
+}
+
+#expander2 .header > label {
+	min-height: 28px
+}
+
+.properties-view #expander2.inherited .header > label {
+	color: rgb(150, 100, 0);
+}
+
+button.compact {
+	padding: 0px 2px 0px 2px;
+}
+
+.colorfast-link link {
+	color: @theme_fg_color;
+}

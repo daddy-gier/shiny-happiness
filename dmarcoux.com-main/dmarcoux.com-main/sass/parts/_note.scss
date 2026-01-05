@@ -1,0 +1,39 @@
+:root {
+  --note-header-bg: var(--bg-2);
+  --note-header-color: var(--text-0);
+  --note-content-bg: var(--bg-1);
+}
+
+.note-container {
+  border-radius: 4px;
+  overflow: hidden;
+  margin: 1em 0;
+  position: relative;
+  border-left: 3px solid var(--primary-color);
+}
+
+.note-header {
+  color: var(--note-header-color);
+  background-color: var(--note-header-bg);
+  padding: 10px 25px;
+  text-align: left;
+  border: none;
+  width: 100%;
+  position: relative;
+  outline: none;
+  font-size: 1.2em;
+  transition: background-color 0.3s ease;
+
+  p {
+    margin: 0;
+  }
+}
+
+.note-content {
+  padding: 10px 20px;
+  background-color: var(--note-content-bg);
+}
+
+small {
+  font-size: small;
+}

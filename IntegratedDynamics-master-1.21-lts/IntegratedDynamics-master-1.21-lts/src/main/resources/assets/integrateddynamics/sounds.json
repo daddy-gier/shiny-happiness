@@ -1,0 +1,16 @@
+{
+    "effect_page_flipsingle": {
+        "sounds": [
+            "integrateddynamics:page_flip1",
+            "integrateddynamics:page_flip2",
+            "integrateddynamics:page_flip3"
+        ],
+        "subtitle": "subtitles.integrateddynamics.effect.page.flipsingle"
+    },
+    "effect_page_flipmultiple": {
+        "sounds": [
+            "integrateddynamics:pages_flip"
+        ],
+        "subtitle": "subtitles.integrateddynamics.effect.page.flipmultiple"
+    }
+}

@@ -1,0 +1,6 @@
+{
+  "parent": "cyclopscore:item/flat",
+  "textures": {
+    "layer0": "integrateddynamics:item/portable_logic_programmer"
+  }
+}
