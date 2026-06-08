@@ -8,9 +8,8 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
+    if: ${{ hashFiles('project.clj') != '' }}
     steps:
     - uses: actions/checkout@v4
     - name: Install dependencies
