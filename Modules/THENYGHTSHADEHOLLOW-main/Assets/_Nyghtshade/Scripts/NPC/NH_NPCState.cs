@@ -1,0 +1,20 @@
+public enum NH_NPCState
+{
+    Idle,
+    Patrol,
+    Working,
+    Eating,
+    YardTime,
+    Talking,
+    Suspicious,
+    Searching,
+    Fleeing,
+    Hiding,
+    FightingAbstract,
+    Injured,
+    Surrendered,
+    GuardingArea,
+    LockdownPosition,
+    RiotActive,
+    Negotiating
+}
