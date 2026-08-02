@@ -19,6 +19,8 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: read
+    # Only run when a Gradle wrapper exists at the repo root
+    if: hashFiles('gradlew') != ''
 
     steps:
     - uses: actions/checkout@v4
@@ -52,6 +54,8 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+    # Only run when a Gradle wrapper exists at the repo root
+    if: hashFiles('gradlew') != ''
 
     steps:
     - uses: actions/checkout@v4

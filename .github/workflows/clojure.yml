@@ -10,6 +10,8 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
+    # Only run when a Leiningen project file exists at the repo root
+    if: hashFiles('project.clj') != ''
 
     steps:
     - uses: actions/checkout@v4
